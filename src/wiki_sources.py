@@ -1,0 +1,17 @@
+WIKIPEDIA_ARTICLES = [
+    "1950 FIFA World Cup Final",
+    "1966 FIFA World Cup Final",
+    "1986 FIFA World Cup Final",
+    "1998 FIFA World Cup Final",
+    "2002 FIFA World Cup Final",
+    "2014 FIFA World Cup Final",
+    "2018 FIFA World Cup Final",
+    "2022 FIFA World Cup Final",
+    "Diego Maradona",
+    "Pelé",
+    "Lionel Messi",
+    "Cristiano Ronaldo",
+    "Kylian Mbappé",
+    "Hand of God goal",
+    "Maracanazo",
+]

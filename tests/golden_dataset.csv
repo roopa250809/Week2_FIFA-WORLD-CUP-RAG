@@ -1,0 +1,18 @@
+question,expected_contains,should_refuse,category,notes
+"Who won the 1998 FIFA World Cup?","France",False,tournament_winner,Direct year lookup
+"Who won the 2022 FIFA World Cup?","Argentina",False,tournament_winner,Most recent tournament
+"Who won the 1970 FIFA World Cup?","Brazil",False,tournament_winner,Brazil's dominant campaign
+"Who won the first FIFA World Cup?","Uruguay",False,ordinal_rewrite,1st = 1930
+"Who won the 2nd FIFA World Cup?","Italy",False,ordinal_rewrite,2nd = 1934
+"Who won the 3rd FIFA World Cup?","Italy",False,ordinal_rewrite,3rd = 1938
+"Who won the 22nd FIFA World Cup?","Argentina",False,ordinal_rewrite,22nd = 2022
+"What was the Hand of God?","Maradona",False,iconic_moment,Famous handball goal
+"Tell me about the Maracanazo","Uruguay",False,iconic_moment,1950 upset vs Brazil
+"How many goals did Argentina score in 2022?","15",False,stats_lookup,Direct standings data
+"Which team had the best defensive record in a World Cup winning campaign?","France",False,aggregation,Requires insight doc
+"Who hosted the 1998 FIFA World Cup?","France",False,tournament_summary,Host nation lookup
+"How many teams competed in the 2022 World Cup?","32",False,tournament_summary,Teams count
+"Who finished third in the 2014 World Cup?","Netherlands",False,tournament_summary,Third place lookup
+"What is the recipe for chocolate cake?","",True,out_of_domain,Completely off-topic
+"Who won the 2026 FIFA World Cup?","",True,out_of_domain,Future event not in corpus
+"What is the FIFA transfer window?","",True,out_of_domain,Football but not in corpus
