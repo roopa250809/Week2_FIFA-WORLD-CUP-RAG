@@ -347,6 +347,7 @@ st.markdown("""
   <div class="tech-row"><span class="tech-badge badge-orange">🤗 HuggingFace</span></div>
   <div class="tech-row"><span class="tech-badge badge-yellow">📊 BM25</span></div>
   <div class="tech-row"><span class="tech-badge badge-red">🎈 Streamlit</span></div>
+  <div class="tech-row"><span class="tech-badge badge-green">📐 RAGAS</span></div>
 </div>
 """, unsafe_allow_html=True)
 
