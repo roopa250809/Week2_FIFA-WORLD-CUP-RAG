@@ -11,11 +11,20 @@ st.markdown("""
   * { font-family: 'Inter', sans-serif; }
 
   /* ── Background ── */
+  html, body {
+      background-color: #060e1c !important;
+  }
   .stApp {
       background:
           radial-gradient(ellipse at 20% 20%, rgba(255,215,0,0.06) 0%, transparent 50%),
           radial-gradient(ellipse at 80% 80%, rgba(74,158,218,0.06) 0%, transparent 50%),
           linear-gradient(160deg, #060e1c 0%, #0f1f38 40%, #071526 100%);
+  }
+  [data-testid="stAppViewContainer"],
+  [data-testid="stAppViewBlockContainer"],
+  [data-testid="stMain"],
+  [data-testid="stMainBlockContainer"] {
+      background: transparent !important;
   }
   header[data-testid="stHeader"] { background: transparent; }
 
@@ -72,16 +81,47 @@ st.markdown("""
   }
 
   /* ── Chat input ── */
-  [data-testid="stChatInput"] {
-      background: rgba(255,255,255,0.04) !important;
-      border: 1px solid rgba(255,215,0,0.25) !important;
+  [data-testid="stChatInput"],
+  [data-testid="stChatInput"] > div,
+  [data-testid="stChatInput"] > div > div,
+  [data-testid="stChatInput"] > div > div > div {
+      background: #0a1628 !important;
       border-radius: 14px !important;
+  }
+  [data-testid="stChatInput"] {
+      border: 1px solid rgba(255,215,0,0.25) !important;
   }
   [data-testid="stChatInput"] textarea {
       color: #e8f0f8 !important;
-      background: transparent !important;
+      background: #0a1628 !important;
+      caret-color: #FFD700 !important;
   }
   [data-testid="stChatInput"] textarea::placeholder { color: #4a6a8a !important; }
+
+  /* ── Bottom bar — full coverage ── */
+  section[data-testid="stBottom"],
+  section[data-testid="stBottom"] *,
+  [data-testid="stBottomBlockContainer"],
+  [data-testid="stBottomBlockContainer"] * {
+      background-color: #060e1c !important;
+  }
+
+  /* Keep input + button visually intact — higher specificity than stBottom * */
+  section[data-testid="stBottom"] [data-testid="stChatInput"],
+  section[data-testid="stBottom"] [data-testid="stChatInput"] textarea,
+  [data-testid="stChatInput"],
+  [data-testid="stChatInput"] textarea {
+      background-color: #0a1628 !important;
+  }
+
+  /* Pseudo-element backdrop to kill any leftover white strips */
+  section[data-testid="stBottom"]::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: #060e1c;
+      z-index: -1;
+  }
 
   /* ── Expander (sources) ── */
   [data-testid="stExpander"] {
@@ -194,22 +234,6 @@ st.markdown("""
   .orb-gold { width: 320px; height: 320px; background: rgba(255,215,0,0.07); top: -80px; right: -80px; }
   .orb-blue { width: 280px; height: 280px; background: rgba(74,158,218,0.07); bottom: 60px; left: -60px; }
 
-  /* ── Confidence badge ── */
-  .conf-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 3px 11px;
-      border-radius: 20px;
-      font-size: 0.73rem;
-      font-weight: 600;
-      letter-spacing: 0.3px;
-      margin-top: 6px;
-  }
-  .conf-high { background: rgba(34,197,94,0.12);  color: #4ade80; border: 1px solid rgba(34,197,94,0.25); }
-  .conf-med  { background: rgba(234,179,8,0.12);  color: #facc15; border: 1px solid rgba(234,179,8,0.25); }
-  .conf-low  { background: rgba(239,68,68,0.12);  color: #f87171; border: 1px solid rgba(239,68,68,0.25); }
-
   /* ── Refusal box ── */
   .refusal-box {
       background: rgba(234,179,8,0.07);
@@ -223,47 +247,31 @@ st.markdown("""
       margin: 0.3rem 0;
   }
 
-  /* ── Tech stack (fixed bottom-right) ── */
-  .tech-panel {
+  /* ── Right info panel (Built with only) ── */
+  .right-info-panel {
       position: fixed;
-      top: 18px;
-      right: 18px;
+      top: 80px;
+      right: 12px;
       z-index: 999;
-      background: rgba(6,14,28,0.88);
+      width: 170px;
+      background: rgba(6,14,28,0.90);
       border: 1px solid rgba(255,215,0,0.12);
       border-radius: 12px;
-      padding: 10px 14px;
+      padding: 14px 16px;
       backdrop-filter: blur(10px);
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      min-width: 210px;
   }
-  .tech-panel-title {
-      font-size: 0.62rem;
+  .rp-section-title {
+      font-size: 0.6rem;
       font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
       color: #3a5a7a;
-      margin-bottom: 2px;
+      margin-bottom: 8px;
   }
-  .tech-row {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-  }
+  .tech-row { display: flex; align-items: center; gap: 5px; margin-bottom: 4px; }
   .tech-badge {
-      font-size: 0.68rem;
-      font-weight: 600;
-      padding: 1px 7px;
-      border-radius: 20px;
-      white-space: nowrap;
-      letter-spacing: 0.2px;
-  }
-  .tech-role {
-      font-size: 0.66rem;
-      color: #3a5a7a;
-      white-space: nowrap;
+      font-size: 0.68rem; font-weight: 600; padding: 2px 8px;
+      border-radius: 20px; white-space: nowrap;
   }
   .badge-purple { background: rgba(168,85,247,0.15); color: #c084fc; border: 1px solid rgba(168,85,247,0.25); }
   .badge-green  { background: rgba(34,197,94,0.12);  color: #4ade80; border: 1px solid rgba(34,197,94,0.22); }
@@ -272,125 +280,54 @@ st.markdown("""
   .badge-yellow { background: rgba(250,204,21,0.12); color: #facc15; border: 1px solid rgba(250,204,21,0.22); }
   .badge-red    { background: rgba(239,68,68,0.12);  color: #f87171; border: 1px solid rgba(239,68,68,0.22); }
 
-  /* ── Eval strip ── */
-  .eval-strip {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin: 0 0 1.2rem;
-  }
-  .eval-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,215,0,0.1);
-      border-radius: 12px;
-      padding: 8px 18px;
-      min-width: 110px;
-  }
-  .eval-label {
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: #3a5a7a;
-      margin-bottom: 3px;
-  }
-  .eval-score {
-      font-size: 1.35rem;
-      font-weight: 800;
-      color: #4ade80;
-      line-height: 1;
-  }
-  .eval-pass {
-      font-size: 0.65rem;
-      color: #4ade80;
-      margin-top: 2px;
-      letter-spacing: 0.5px;
-  }
-  .eval-divider {
-      width: 1px;
-      height: 36px;
-      background: rgba(255,215,0,0.08);
-  }
-  .eval-judge {
-      font-size: 0.68rem;
-      color: #2a4a6a;
+  /* ── Metrics strip (Evaluation + Corpus) ── */
+  /* ── Metrics caption (subtle, secondary) ── */
+  .metrics-caption {
       text-align: center;
-      margin-top: 0.1rem;
-  }
-
-  /* ── Stats bar ── */
-  .stats-bar {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0;
-      margin: 0.6rem 0 0;
-      flex-wrap: wrap;
-  }
-  .stats-item {
+      margin: 0.2rem 0 1.2rem;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      padding: 0 22px;
-      border-right: 1px solid rgba(255,215,0,0.08);
+      gap: 4px;
   }
-  .stats-item:last-child { border-right: none; }
-  .stats-num {
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: #FFD700;
-      line-height: 1;
+  .metrics-caption .mc-line {
+      font-size: 0.72rem;
+      color: rgba(74,222,128,0.45);
+      letter-spacing: 0.2px;
   }
-  .stats-desc {
-      font-size: 0.62rem;
-      color: #3a5a7a;
-      letter-spacing: 0.5px;
-      margin-top: 2px;
-      white-space: nowrap;
+  .metrics-caption .mc-line span {
+      color: rgba(74,222,128,0.75);
+      font-weight: 600;
+  }
+  .metrics-caption .mc-dot {
+      color: rgba(74,222,128,0.2);
+      margin: 0 5px;
   }
 
-  /* ── Pipeline trace ── */
-  .trace-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-top: 4px;
+
+  /* ── Feedback buttons ── */
+  .fb-msg {
+      font-size: 0.72rem;
+      margin-left: 4px;
   }
-  .trace-cell {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,215,0,0.08);
-      border-radius: 8px;
-      padding: 7px 11px;
+  .fb-msg.like    { color: #4ade80; }
+  .fb-msg.dislike { color: #f87171; }
+
+  /* Feedback buttons side by side */
+  [data-testid="stChatMessage"] [data-testid="stHorizontalBlock"] {
+      gap: 0 !important;
   }
-  .trace-cell.full { grid-column: 1 / -1; }
-  .trace-key {
-      font-size: 0.60rem;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: #3a5a7a;
-      margin-bottom: 3px;
+  [data-testid="stChatMessage"] [data-testid="column"] {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      min-width: 0 !important;
   }
-  .trace-val {
-      font-size: 0.78rem;
-      color: #8aa8c4;
-      word-break: break-word;
-  }
-  .trace-val.highlight { color: #facc15; }
-  .trace-node {
-      display: inline-block;
-      background: rgba(74,158,218,0.1);
-      border: 1px solid rgba(74,158,218,0.2);
-      border-radius: 6px;
-      padding: 1px 8px;
-      font-size: 0.70rem;
-      color: #60a5fa;
-      margin: 2px 3px 2px 0;
+
+  /* Selected state — primary buttons in feedback row */
+  button[data-testid="baseButton-primary"] {
+      background: rgba(255, 215, 0, 0.18) !important;
+      border: 1.5px solid rgba(255, 215, 0, 0.7) !important;
+      color: #FFD700 !important;
+      box-shadow: 0 0 8px rgba(255, 215, 0, 0.25) !important;
   }
 
   p, li { color: #c8dcef; }
@@ -401,15 +338,15 @@ st.markdown("""
 <div class="orb orb-gold"></div>
 <div class="orb orb-blue"></div>
 
-<div class="tech-panel">
-  <div class="tech-panel-title">Built with</div>
-  <div class="tech-row"><span class="tech-badge badge-purple">🤖 Claude Haiku 4.5</span><span class="tech-role">LLM · Generation</span></div>
-  <div class="tech-row"><span class="tech-badge badge-green">🌲 Pinecone</span><span class="tech-role">Vector DB · Dense + Sparse</span></div>
-  <div class="tech-row"><span class="tech-badge badge-blue">🔗 LangGraph</span><span class="tech-role">Orchestration</span></div>
-  <div class="tech-row"><span class="tech-badge badge-blue">⛓️ LangChain</span><span class="tech-role">Framework</span></div>
-  <div class="tech-row"><span class="tech-badge badge-orange">🤗 HuggingFace</span><span class="tech-role">Embeddings · MiniLM-L6</span></div>
-  <div class="tech-row"><span class="tech-badge badge-yellow">📊 BM25</span><span class="tech-role">Sparse Retrieval</span></div>
-  <div class="tech-row"><span class="tech-badge badge-red">🎈 Streamlit</span><span class="tech-role">UI</span></div>
+<div class="right-info-panel">
+  <div class="rp-section-title">Built with</div>
+  <div class="tech-row"><span class="tech-badge badge-purple">🤖 Claude Haiku 4.5</span></div>
+  <div class="tech-row"><span class="tech-badge badge-green">🌲 Pinecone</span></div>
+  <div class="tech-row"><span class="tech-badge badge-blue">🔗 LangGraph</span></div>
+  <div class="tech-row"><span class="tech-badge badge-blue">⛓️ LangChain</span></div>
+  <div class="tech-row"><span class="tech-badge badge-orange">🤗 HuggingFace</span></div>
+  <div class="tech-row"><span class="tech-badge badge-yellow">📊 BM25</span></div>
+  <div class="tech-row"><span class="tech-badge badge-red">🎈 Streamlit</span></div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -422,41 +359,20 @@ st.markdown("""
 </div>
 <hr class="gold-divider">
 
-<div class="eval-strip">
-  <div class="eval-card">
-    <span class="eval-label">Faithfulness</span>
-    <span class="eval-score">0.92</span>
-    <span class="eval-pass">✓ PASS</span>
+<div class="metrics-caption">
+  <div class="mc-line">
+    Faithfulness <span>0.92</span><span class="mc-dot">·</span>
+    Relevancy <span>0.87</span><span class="mc-dot">·</span>
+    Recall <span>0.86</span><span class="mc-dot">·</span>
+    Golden Dataset <span>17/17</span>
   </div>
-  <div class="eval-divider"></div>
-  <div class="eval-card">
-    <span class="eval-label">Relevancy</span>
-    <span class="eval-score">0.87</span>
-    <span class="eval-pass">✓ PASS</span>
-  </div>
-  <div class="eval-divider"></div>
-  <div class="eval-card">
-    <span class="eval-label">Context Recall</span>
-    <span class="eval-score">0.86</span>
-    <span class="eval-pass">✓ PASS</span>
-  </div>
-  <div class="eval-divider"></div>
-  <div class="eval-card">
-    <span class="eval-label">Golden Dataset</span>
-    <span class="eval-score">17/17</span>
-    <span class="eval-pass">✓ 100%</span>
+  <div class="mc-line">
+    <span>1,466</span> docs<span class="mc-dot">·</span>
+    <span>22</span> editions<span class="mc-dot">·</span>
+    Hybrid retrieval<span class="mc-dot">·</span>
+    <span>384‑dim</span> embeddings
   </div>
 </div>
-
-<div class="stats-bar">
-  <div class="stats-item"><span class="stats-num">1,466</span><span class="stats-desc">Documents indexed</span></div>
-  <div class="stats-item"><span class="stats-num">22</span><span class="stats-desc">Tournaments</span></div>
-  <div class="stats-item"><span class="stats-num">1930–2022</span><span class="stats-desc">Coverage</span></div>
-  <div class="stats-item"><span class="stats-num">Hybrid</span><span class="stats-desc">Dense + Sparse retrieval</span></div>
-  <div class="stats-item"><span class="stats-num">384‑dim</span><span class="stats-desc">Embeddings</span></div>
-</div>
-
-<hr class="gold-divider">
 """, unsafe_allow_html=True)
 
 SUGGESTIONS = [
@@ -490,59 +406,6 @@ def get_generator():
     return AnswerGenerator()
 
 
-def confidence_badge(score: float) -> str:
-    if score >= 0.65:
-        cls, dot, label = "conf-high", "●", f"High confidence · {score:.2f}"
-    elif score >= 0.50:
-        cls, dot, label = "conf-med",  "●", f"Medium confidence · {score:.2f}"
-    else:
-        cls, dot, label = "conf-low",  "●", f"Low confidence · {score:.2f}"
-    return f'<span class="conf-badge {cls}">{dot} {label}</span>'
-
-
-def render_pipeline_trace(turn):
-    rewritten = turn.get("rewritten_query", "")
-    original  = turn.get("query", "")
-    top_score = turn.get("top_score", 0.0)
-    docs      = turn.get("trace_docs", [])
-
-    rewritten_display = rewritten if rewritten and rewritten != original else "—"
-
-    source_counts: dict = {}
-    for d in docs:
-        src = d.get("source", "unknown")
-        source_counts[src] = source_counts.get(src, 0) + 1
-    sources_str = " · ".join(f"{v} {k.replace('_', ' ')}" for k, v in source_counts.items()) or "—"
-
-    nodes_html = '<span class="trace-node">rewrite</span><span class="trace-node">retrieve</span><span class="trace-node">generate</span>'
-
-    with st.expander("🔍 Pipeline trace"):
-        st.markdown(f"""
-<div class="trace-grid">
-  <div class="trace-cell full">
-    <div class="trace-key">LangGraph nodes fired</div>
-    <div class="trace-val">{nodes_html}</div>
-  </div>
-  <div class="trace-cell">
-    <div class="trace-key">Original query</div>
-    <div class="trace-val">{original}</div>
-  </div>
-  <div class="trace-cell">
-    <div class="trace-key">Rewritten query</div>
-    <div class="trace-val highlight">{rewritten_display}</div>
-  </div>
-  <div class="trace-cell">
-    <div class="trace-key">Top retrieval score</div>
-    <div class="trace-val highlight">{top_score:.3f}</div>
-  </div>
-  <div class="trace-cell">
-    <div class="trace-key">Sources retrieved</div>
-    <div class="trace-val">{sources_str}</div>
-  </div>
-</div>
-""", unsafe_allow_html=True)
-
-
 def render_citations(citations):
     with st.expander("📚 Sources"):
         for c in citations:
@@ -558,10 +421,30 @@ def render_citations(citations):
 
 if "history" not in st.session_state:
     st.session_state.history = []
+if "feedback" not in st.session_state:
+    st.session_state.feedback = {}
+
+
+def render_feedback(idx: int):
+    fb = st.session_state.feedback.get(idx)
+    c1, c2, c3 = st.columns([1, 1, 8], gap="small")
+    with c1:
+        if st.button("👍", key=f"like_{idx}", type="primary" if fb == "like" else "secondary", use_container_width=True):
+            st.session_state.feedback[idx] = None if fb == "like" else "like"
+            st.rerun()
+    with c2:
+        if st.button("👎", key=f"dislike_{idx}", type="primary" if fb == "dislike" else "secondary", use_container_width=True):
+            st.session_state.feedback[idx] = None if fb == "dislike" else "dislike"
+            st.rerun()
+    with c3:
+        if fb == "like":
+            st.markdown('<span class="fb-msg like">Thanks for the feedback!</span>', unsafe_allow_html=True)
+        elif fb == "dislike":
+            st.markdown('<span class="fb-msg dislike">Thanks — noted for improvement.</span>', unsafe_allow_html=True)
 
 
 # ── Render history ──
-for turn in st.session_state.history:
+for i, turn in enumerate(st.session_state.history):
     with st.chat_message("user"):
         st.write(turn["query"])
     with st.chat_message("assistant", avatar="⚽"):
@@ -572,8 +455,7 @@ for turn in st.session_state.history:
             st.write(turn["answer"])
             if turn.get("citations"):
                 render_citations(turn["citations"])
-            st.markdown(confidence_badge(turn.get("top_score", 0)), unsafe_allow_html=True)
-            render_pipeline_trace(turn)
+        render_feedback(i)
 
 
 # ── Input ──
@@ -614,7 +496,7 @@ if query:
         if refused:
             st.markdown(f'<div class="refusal-box">⚠️&nbsp; {REFUSAL_RESPONSE}</div>',
                         unsafe_allow_html=True)
-            answer, citations, trace_docs = REFUSAL_RESPONSE, [], []
+            answer, citations = REFUSAL_RESPONSE, []
         else:
             # Phase 2: stream the answer token-by-token
             generation_query = state.get("rewritten_query") or query
@@ -622,23 +504,12 @@ if query:
             answer = st.write_stream(gen)
             if citations:
                 render_citations(citations)
-            st.markdown(confidence_badge(top_score), unsafe_allow_html=True)
-            trace_docs = [
-                {"source": d.metadata.get("source", "unknown")}
-                for d in state.get("documents", [])
-            ]
-            live_turn = {
-                "query": query, "rewritten_query": state.get("rewritten_query", query),
-                "top_score": top_score, "trace_docs": trace_docs,
-            }
-            render_pipeline_trace(live_turn)
 
     st.session_state.history.append({
-        "query":           query,
-        "rewritten_query": state.get("rewritten_query", query),
-        "answer":          answer,
-        "citations":       citations,
-        "refused":         refused,
-        "top_score":       top_score,
-        "trace_docs":      trace_docs if not refused else [],
+        "query":     query,
+        "answer":    answer,
+        "citations": citations,
+        "refused":   refused,
+        "top_score": top_score,
     })
+    st.rerun()

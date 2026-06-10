@@ -36,6 +36,16 @@ Convert the user's question into an optimal search query by:
 
 Return ONLY the rewritten query, no explanation."""
 
+DEFENSE_QUERY_PATTERN = re.compile(
+    r"\b(best|strongest|tightest|fewest goals?|least goals?|most clean sheets?|"
+    r"defensive|defense|defence|kept out|goals? conceded|goals? against)\b",
+    re.IGNORECASE,
+)
+
+def _rewrite_defense_query(query: str) -> str:
+    """Append corpus-friendly terms so dense retrieval finds standing/insight docs."""
+    return query.rstrip("?") + " fewest goals conceded goals against FIFA World Cup"
+
 ORDINAL_TO_YEAR = {
     "1st": "1930", "first": "1930",
     "2nd": "1934", "second": "1934",
@@ -120,10 +130,11 @@ def rewrite_node(state: RAGState) -> Dict[str, Any]:
         print(f"[rewrite_node] out-of-scope year detected — refusing")
         return {"rewritten_query": query, "refused": True, "top_score": 0.0}
 
-    has_ordinal    = bool(_EDITION_ORDINAL_RE.search(query))
-    has_goal_query = bool(PLAYER_GOAL_PATTERN.search(query))
+    has_ordinal      = bool(_EDITION_ORDINAL_RE.search(query))
+    has_goal_query   = bool(PLAYER_GOAL_PATTERN.search(query))
+    has_defense_query = bool(DEFENSE_QUERY_PATTERN.search(query))
 
-    if not has_ordinal and not has_goal_query:
+    if not has_ordinal and not has_goal_query and not has_defense_query:
         print(f"[rewrite_node] no rewrite needed")
         return {"rewritten_query": query}
 
@@ -138,6 +149,10 @@ def rewrite_node(state: RAGState) -> Dict[str, Any]:
             HumanMessage(content=rewritten),
         ])
         rewritten = response.content.strip()
+
+    # Defense queries: append corpus vocabulary programmatically
+    if has_defense_query and not has_goal_query:
+        rewritten = _rewrite_defense_query(rewritten)
 
     print(f"[rewrite_node] '{query}' -> '{rewritten}'")
     return {"rewritten_query": rewritten}
