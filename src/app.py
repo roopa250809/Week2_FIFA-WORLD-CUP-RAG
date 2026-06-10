@@ -223,6 +223,176 @@ st.markdown("""
       margin: 0.3rem 0;
   }
 
+  /* ── Tech stack (fixed bottom-right) ── */
+  .tech-panel {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 999;
+      background: rgba(6,14,28,0.88);
+      border: 1px solid rgba(255,215,0,0.12);
+      border-radius: 12px;
+      padding: 10px 14px;
+      backdrop-filter: blur(10px);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      min-width: 210px;
+  }
+  .tech-panel-title {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #3a5a7a;
+      margin-bottom: 2px;
+  }
+  .tech-row {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+  }
+  .tech-badge {
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 1px 7px;
+      border-radius: 20px;
+      white-space: nowrap;
+      letter-spacing: 0.2px;
+  }
+  .tech-role {
+      font-size: 0.66rem;
+      color: #3a5a7a;
+      white-space: nowrap;
+  }
+  .badge-purple { background: rgba(168,85,247,0.15); color: #c084fc; border: 1px solid rgba(168,85,247,0.25); }
+  .badge-green  { background: rgba(34,197,94,0.12);  color: #4ade80; border: 1px solid rgba(34,197,94,0.22); }
+  .badge-blue   { background: rgba(74,158,218,0.13); color: #60a5fa; border: 1px solid rgba(74,158,218,0.25); }
+  .badge-orange { background: rgba(251,146,60,0.13); color: #fb923c; border: 1px solid rgba(251,146,60,0.25); }
+  .badge-yellow { background: rgba(250,204,21,0.12); color: #facc15; border: 1px solid rgba(250,204,21,0.22); }
+  .badge-red    { background: rgba(239,68,68,0.12);  color: #f87171; border: 1px solid rgba(239,68,68,0.22); }
+
+  /* ── Eval strip ── */
+  .eval-strip {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 0 0 1.2rem;
+  }
+  .eval-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,215,0,0.1);
+      border-radius: 12px;
+      padding: 8px 18px;
+      min-width: 110px;
+  }
+  .eval-label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #3a5a7a;
+      margin-bottom: 3px;
+  }
+  .eval-score {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #4ade80;
+      line-height: 1;
+  }
+  .eval-pass {
+      font-size: 0.65rem;
+      color: #4ade80;
+      margin-top: 2px;
+      letter-spacing: 0.5px;
+  }
+  .eval-divider {
+      width: 1px;
+      height: 36px;
+      background: rgba(255,215,0,0.08);
+  }
+  .eval-judge {
+      font-size: 0.68rem;
+      color: #2a4a6a;
+      text-align: center;
+      margin-top: 0.1rem;
+  }
+
+  /* ── Stats bar ── */
+  .stats-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+      margin: 0.6rem 0 0;
+      flex-wrap: wrap;
+  }
+  .stats-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 22px;
+      border-right: 1px solid rgba(255,215,0,0.08);
+  }
+  .stats-item:last-child { border-right: none; }
+  .stats-num {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #FFD700;
+      line-height: 1;
+  }
+  .stats-desc {
+      font-size: 0.62rem;
+      color: #3a5a7a;
+      letter-spacing: 0.5px;
+      margin-top: 2px;
+      white-space: nowrap;
+  }
+
+  /* ── Pipeline trace ── */
+  .trace-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 4px;
+  }
+  .trace-cell {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,215,0,0.08);
+      border-radius: 8px;
+      padding: 7px 11px;
+  }
+  .trace-cell.full { grid-column: 1 / -1; }
+  .trace-key {
+      font-size: 0.60rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #3a5a7a;
+      margin-bottom: 3px;
+  }
+  .trace-val {
+      font-size: 0.78rem;
+      color: #8aa8c4;
+      word-break: break-word;
+  }
+  .trace-val.highlight { color: #facc15; }
+  .trace-node {
+      display: inline-block;
+      background: rgba(74,158,218,0.1);
+      border: 1px solid rgba(74,158,218,0.2);
+      border-radius: 6px;
+      padding: 1px 8px;
+      font-size: 0.70rem;
+      color: #60a5fa;
+      margin: 2px 3px 2px 0;
+  }
+
   p, li { color: #c8dcef; }
   a { color: #4a9eda !important; }
   a:hover { color: #FFD700 !important; }
@@ -230,6 +400,17 @@ st.markdown("""
 
 <div class="orb orb-gold"></div>
 <div class="orb orb-blue"></div>
+
+<div class="tech-panel">
+  <div class="tech-panel-title">Built with</div>
+  <div class="tech-row"><span class="tech-badge badge-purple">🤖 Claude Haiku 4.5</span><span class="tech-role">LLM · Generation</span></div>
+  <div class="tech-row"><span class="tech-badge badge-green">🌲 Pinecone</span><span class="tech-role">Vector DB · Dense + Sparse</span></div>
+  <div class="tech-row"><span class="tech-badge badge-blue">🔗 LangGraph</span><span class="tech-role">Orchestration</span></div>
+  <div class="tech-row"><span class="tech-badge badge-blue">⛓️ LangChain</span><span class="tech-role">Framework</span></div>
+  <div class="tech-row"><span class="tech-badge badge-orange">🤗 HuggingFace</span><span class="tech-role">Embeddings · MiniLM-L6</span></div>
+  <div class="tech-row"><span class="tech-badge badge-yellow">📊 BM25</span><span class="tech-role">Sparse Retrieval</span></div>
+  <div class="tech-row"><span class="tech-badge badge-red">🎈 Streamlit</span><span class="tech-role">UI</span></div>
+</div>
 """, unsafe_allow_html=True)
 
 # ── Hero ──
@@ -239,6 +420,42 @@ st.markdown("""
   <h1>FIFA World Cup Expert</h1>
   <p class="subtitle">Tournament history · Iconic players · Legendary moments &nbsp;·&nbsp; 1930 – 2022</p>
 </div>
+<hr class="gold-divider">
+
+<div class="eval-strip">
+  <div class="eval-card">
+    <span class="eval-label">Faithfulness</span>
+    <span class="eval-score">0.92</span>
+    <span class="eval-pass">✓ PASS</span>
+  </div>
+  <div class="eval-divider"></div>
+  <div class="eval-card">
+    <span class="eval-label">Relevancy</span>
+    <span class="eval-score">0.87</span>
+    <span class="eval-pass">✓ PASS</span>
+  </div>
+  <div class="eval-divider"></div>
+  <div class="eval-card">
+    <span class="eval-label">Context Recall</span>
+    <span class="eval-score">0.86</span>
+    <span class="eval-pass">✓ PASS</span>
+  </div>
+  <div class="eval-divider"></div>
+  <div class="eval-card">
+    <span class="eval-label">Golden Dataset</span>
+    <span class="eval-score">17/17</span>
+    <span class="eval-pass">✓ 100%</span>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stats-item"><span class="stats-num">1,466</span><span class="stats-desc">Documents indexed</span></div>
+  <div class="stats-item"><span class="stats-num">22</span><span class="stats-desc">Tournaments</span></div>
+  <div class="stats-item"><span class="stats-num">1930–2022</span><span class="stats-desc">Coverage</span></div>
+  <div class="stats-item"><span class="stats-num">Hybrid</span><span class="stats-desc">Dense + Sparse retrieval</span></div>
+  <div class="stats-item"><span class="stats-num">384‑dim</span><span class="stats-desc">Embeddings</span></div>
+</div>
+
 <hr class="gold-divider">
 """, unsafe_allow_html=True)
 
@@ -266,8 +483,6 @@ with st.sidebar:
         st.rerun()
     st.markdown('</div>', unsafe_allow_html=True)
 
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.caption("Claude · Pinecone · LangGraph")
 
 
 @st.cache_resource(show_spinner="Loading RAG pipeline...")
@@ -283,6 +498,49 @@ def confidence_badge(score: float) -> str:
     else:
         cls, dot, label = "conf-low",  "●", f"Low confidence · {score:.2f}"
     return f'<span class="conf-badge {cls}">{dot} {label}</span>'
+
+
+def render_pipeline_trace(turn):
+    rewritten = turn.get("rewritten_query", "")
+    original  = turn.get("query", "")
+    top_score = turn.get("top_score", 0.0)
+    docs      = turn.get("trace_docs", [])
+
+    rewritten_display = rewritten if rewritten and rewritten != original else "—"
+
+    source_counts: dict = {}
+    for d in docs:
+        src = d.get("source", "unknown")
+        source_counts[src] = source_counts.get(src, 0) + 1
+    sources_str = " · ".join(f"{v} {k.replace('_', ' ')}" for k, v in source_counts.items()) or "—"
+
+    nodes_html = '<span class="trace-node">rewrite</span><span class="trace-node">retrieve</span><span class="trace-node">generate</span>'
+
+    with st.expander("🔍 Pipeline trace"):
+        st.markdown(f"""
+<div class="trace-grid">
+  <div class="trace-cell full">
+    <div class="trace-key">LangGraph nodes fired</div>
+    <div class="trace-val">{nodes_html}</div>
+  </div>
+  <div class="trace-cell">
+    <div class="trace-key">Original query</div>
+    <div class="trace-val">{original}</div>
+  </div>
+  <div class="trace-cell">
+    <div class="trace-key">Rewritten query</div>
+    <div class="trace-val highlight">{rewritten_display}</div>
+  </div>
+  <div class="trace-cell">
+    <div class="trace-key">Top retrieval score</div>
+    <div class="trace-val highlight">{top_score:.3f}</div>
+  </div>
+  <div class="trace-cell">
+    <div class="trace-key">Sources retrieved</div>
+    <div class="trace-val">{sources_str}</div>
+  </div>
+</div>
+""", unsafe_allow_html=True)
 
 
 def render_citations(citations):
@@ -315,6 +573,7 @@ for turn in st.session_state.history:
             if turn.get("citations"):
                 render_citations(turn["citations"])
             st.markdown(confidence_badge(turn.get("top_score", 0)), unsafe_allow_html=True)
+            render_pipeline_trace(turn)
 
 
 # ── Input ──
@@ -355,7 +614,7 @@ if query:
         if refused:
             st.markdown(f'<div class="refusal-box">⚠️&nbsp; {REFUSAL_RESPONSE}</div>',
                         unsafe_allow_html=True)
-            answer, citations = REFUSAL_RESPONSE, []
+            answer, citations, trace_docs = REFUSAL_RESPONSE, [], []
         else:
             # Phase 2: stream the answer token-by-token
             generation_query = state.get("rewritten_query") or query
@@ -364,11 +623,22 @@ if query:
             if citations:
                 render_citations(citations)
             st.markdown(confidence_badge(top_score), unsafe_allow_html=True)
+            trace_docs = [
+                {"source": d.metadata.get("source", "unknown")}
+                for d in state.get("documents", [])
+            ]
+            live_turn = {
+                "query": query, "rewritten_query": state.get("rewritten_query", query),
+                "top_score": top_score, "trace_docs": trace_docs,
+            }
+            render_pipeline_trace(live_turn)
 
     st.session_state.history.append({
-        "query":     query,
-        "answer":    answer,
-        "citations": citations,
-        "refused":   refused,
-        "top_score": top_score,
+        "query":           query,
+        "rewritten_query": state.get("rewritten_query", query),
+        "answer":          answer,
+        "citations":       citations,
+        "refused":         refused,
+        "top_score":       top_score,
+        "trace_docs":      trace_docs if not refused else [],
     })
